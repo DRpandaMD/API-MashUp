@@ -22,7 +22,7 @@ session = DBSession()
 # ROUTES
 # we want to be able to get all restaurants from the database
 # AND we want to be able to provide arguments in the url to add items to the data base
-@app.route('/restaurants', method=['GET', 'POST'])
+@app.route('/restaurants', methods=['GET', 'POST'])
 def all_restaurants_handler():
     if request.method == 'GET':
         # We want to return all restaurants
@@ -53,6 +53,26 @@ def restaurant_handler(id):
     if request.method == 'GET':
         # return the specific restaurant we just queried for
         return jsonify(restaurant=restaurant.serialize)
+    elif request.method == 'POST':
+        # here we will update a specific restaurant entry
+        address = request.args.get('address')
+        name = request.args.get('name')
+        image = request.args.get('image')
+        # check and re-assign values with new values
+        if address:
+            restaurant.restaurant_address = address
+        if name:
+            restaurant.restaurant_name = name
+        if image:
+            restaurant.restaurant_image = image
+        session.commit()
+        # now that we have everything adjusted and committed return the json object
+        return jsonify(restaurant=restaurant.serialize)
+    elif request.method == 'DELETE':
+        # obviously here we need to delete the specified restaurant
+        session.delete(restaurant)
+        session.commit()
+        return "Restaurant Deleted"
 
 
 # Application Start Point

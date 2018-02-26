@@ -6,11 +6,11 @@ import api_keys
 # NOTE ON IMPORTS
 # Importing sys and codecs causes a system level error to get thrown in codecs.py in the write function
 # not really sure what is causing the issue.
-#import sys
-#import codecs
+# import sys
+# import codecs
 
-#sys.stdout = codecs.getwriter('utf8')(sys.stdout)
-#sys.stderr = codecs.getwriter('utf8')(sys.stderr)
+# sys.stdout = codecs.getwriter('utf8')(sys.stdout)
+# sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 
 foursquare_client_id = api_keys.foursquare_api_key['client_id']
 foursquare_client_secret = api_keys.foursquare_api_key['client_secret']
